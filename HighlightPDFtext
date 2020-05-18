@@ -1,6 +1,9 @@
-#Lib to read the PDF
+# Install the library 
+! pip install PyMuPDF
+
+#Import the library 
 import fitz
-#To name the file 
+#Import To name the file 
 import time 
 
 ### READ IN PDF
@@ -9,11 +12,12 @@ doc = fitz.open(r'C:\\Users\\Bhabesh\\Downloads\\10780.pdf')
 page = doc[0]
 
 ### HIGHLIGHT
-# define the name of the file to read from
+# define the name of the file to read from get from excel here of needed
 filename = r"C:\Users\Bhabesh\Downloads\SampleData.txt"
 
 ##IO operaiton 
 import os
+
 for line in open(filename, 'r'):
     print(line)
     text_instances = page.searchFor(line)
@@ -24,3 +28,5 @@ doc.save(r"C:\Users\Bhabesh\Downloads\output"+ timestr +".pdf"   , garbage=4, de
 os.system(r'C:\Users\Bhabesh\Downloads\output'+ timestr +".pdf")
 
         
+
+
