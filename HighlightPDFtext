@@ -1,4 +1,4 @@
-# Install the library 
+ Install the library 
 ! pip install PyMuPDF
 
 #Import the library 
@@ -18,15 +18,14 @@ filename = r"C:\Users\Bhabesh\Downloads\SampleData.txt"
 ##IO operaiton 
 import os
 
-for line in open(filename, 'r'):
-    print(line)
-    text_instances = page.searchFor(line)
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-    for inst in text_instances:
-        highlight = page.addHighlightAnnot(inst)
+for page in doc:
+    for line in open(filename, 'r'):
+        print(line)
+        text_instances = page.searchFor(line.strip())
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        for inst in text_instances:
+            highlight = page.addHighlightAnnot(inst)
 doc.save(r"C:\Users\Bhabesh\Downloads\output"+ timestr +".pdf"   , garbage=4, deflate=True, clean=True)
 os.system(r'C:\Users\Bhabesh\Downloads\output'+ timestr +".pdf")
 
         
-
-
