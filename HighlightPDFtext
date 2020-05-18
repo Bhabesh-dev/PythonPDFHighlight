@@ -1,25 +1,26 @@
-# Install the library 
-! pip install PyMuPDF
-#Import the library 
+#Lib to read the PDF
 import fitz
+#To name the file 
+import time 
+
 ### READ IN PDF
 ## Give the file path here 
 doc = fitz.open(r'C:\\Users\\Bhabesh\\Downloads\\10780.pdf')
 page = doc[0]
 
-text = "order"
-text_instances = page.searchFor(text)
-
 ### HIGHLIGHT
+# define the name of the file to read from
+filename = r"C:\Users\Bhabesh\Downloads\SampleData.txt"
 
-for inst in text_instances:
-    highlight = page.addHighlightAnnot(inst)
-
-
-### OUTPUT
-##Save the file in the location
-doc.save(r"C:\Users\Bhabesh\Downloads\10780output.pdf", garbage=4, deflate=True, clean=True)
-
+##IO operaiton 
 import os
-#Open in browser 
-os.system(r'C:\Users\Bhabesh\Downloads\10780output.pdf')
+for line in open(filename, 'r'):
+    print(line)
+    text_instances = page.searchFor(line)
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    for inst in text_instances:
+        highlight = page.addHighlightAnnot(inst)
+doc.save(r"C:\Users\Bhabesh\Downloads\output"+ timestr +".pdf"   , garbage=4, deflate=True, clean=True)
+os.system(r'C:\Users\Bhabesh\Downloads\output'+ timestr +".pdf")
+
+        
