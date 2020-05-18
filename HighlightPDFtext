@@ -1,0 +1,25 @@
+# Install the library 
+! pip install PyMuPDF
+#Import the library 
+import fitz
+### READ IN PDF
+## Give the file path here 
+doc = fitz.open(r'C:\\Users\\Bhabesh\\Downloads\\10780.pdf')
+page = doc[0]
+
+text = "order"
+text_instances = page.searchFor(text)
+
+### HIGHLIGHT
+
+for inst in text_instances:
+    highlight = page.addHighlightAnnot(inst)
+
+
+### OUTPUT
+##Save the file in the location
+doc.save(r"C:\Users\Bhabesh\Downloads\10780output.pdf", garbage=4, deflate=True, clean=True)
+
+import os
+#Open in browser 
+os.system(r'C:\Users\Bhabesh\Downloads\10780output.pdf')
