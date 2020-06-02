@@ -1,0 +1,40 @@
+#pip install pymupdf
+#Library to interact with pdfs
+import fitz
+import time 
+#pip install xlrd
+#lib to read excel files
+import xlrd
+
+#Opening the excel file and the specified sheet. Excel File path to be supplied here
+wb = xlrd.open_workbook(r'C:\Users\Bhabesh\OneDrive\Excels\excel inputV2 1.xlsx')
+sh = wb.sheet_by_index(0)
+
+#Read data from column:
+value_list=sh.col_values(3, start_rowx=1)
+
+### READ IN PDF
+## Give the pdf file path here 
+pdf_document = fitz.open(r'G:\Bhabesh-Wrospace\Git-Hub\Python\PythonPDFHighlight\Test Demo--All Filled.pdf')
+#page = pdf_document[0]
+
+##IO operaiton 
+#page, text, hit_max=16, quads=False, flags=None
+import os
+
+#print(value_list)
+
+for i in range(len(pdf_document)):
+    page = pdf_document[i]
+    for val in value_list:
+        #print(val)
+        text_instances = page.searchFor(val,hit_max=90, quads=False, flags=None)
+    
+        timestr = time.strftime("%Y%m%d-%H%M%S")        
+        for inst in text_instances:
+            #print(inst ,type(inst))
+            highlight = page.addHighlightAnnot(inst)
+
+pdf_document.save(r"C:\Users\Bhabesh\Downloads\highlightedoutput"+ timestr +".pdf", garbage=4, deflate=True, clean=True)
+#doc.save(r"C:\Users\Bhabesh\Downloads\output"+ timestr +".pdf"   , garbage=4, deflate=True, clean=True)
+os.system(r"C:\Users\Bhabesh\Downloads\highlightedoutput"+ timestr +".pdf")
